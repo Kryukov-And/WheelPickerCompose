@@ -32,6 +32,7 @@ internal fun WheelPicker(
     size: DpSize = DpSize(128.dp, 128.dp),
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
     onScrollFinished: (snappedIndex: Int) -> Int? = { null },
+    onScrollInProgress: () -> Unit,
     content: @Composable LazyItemScope.(index: Int) -> Unit,
 ) {
     val lazyListState = rememberLazyListState(startIndex)
@@ -43,6 +44,8 @@ internal fun WheelPicker(
             onScrollFinished(calculateSnappedItemIndex(snapperLayoutInfo) ?: startIndex)?.let {
                 lazyListState.scrollToItem(it)
             }
+        } else {
+            onScrollInProgress()
         }
     }
 

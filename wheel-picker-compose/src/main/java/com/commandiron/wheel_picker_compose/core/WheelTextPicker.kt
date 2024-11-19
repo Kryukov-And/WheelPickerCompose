@@ -21,6 +21,7 @@ fun WheelTextPicker(
     color: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
     onScrollFinished: (snappedIndex: Int) -> Int? = { null },
+    onScrollInProgress: () -> Unit,
 ) {
     WheelPicker(
         modifier = modifier,
@@ -29,7 +30,9 @@ fun WheelTextPicker(
         count = texts.size,
         rowCount = rowCount,
         selectorProperties = selectorProperties,
-        onScrollFinished = onScrollFinished
+        onScrollFinished = onScrollFinished,
+        onScrollInProgress = onScrollInProgress
+
     ){ index ->
         Text(
             text = texts[index],

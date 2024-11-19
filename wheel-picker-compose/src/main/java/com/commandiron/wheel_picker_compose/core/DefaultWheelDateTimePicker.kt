@@ -29,7 +29,8 @@ internal fun DefaultWheelDateTimePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedDateTime : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null }
+    onSnappedDateTime : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onScrollInProgress: () -> Unit,
 ) {
 
     var snappedDateTime by remember { mutableStateOf(startDateTime.truncatedTo(ChronoUnit.MINUTES)) }
@@ -93,7 +94,8 @@ internal fun DefaultWheelDateTimePicker(
                             yearTexts.indexOf(snappedDateTime.year.toString())
                         }
                     }
-                }
+                },
+                onScrollInProgress = onScrollInProgress
             )
             //Time
             DefaultWheelTimePicker(
@@ -135,7 +137,8 @@ internal fun DefaultWheelDateTimePicker(
                             snappedDateTime.minute
                         }
                     }
-                }
+                },
+                onScrollInProgress = onScrollInProgress
             )
         }
     }

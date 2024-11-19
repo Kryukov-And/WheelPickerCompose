@@ -1,6 +1,7 @@
 package com.commandiron.wheelpickercompose
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -36,15 +37,24 @@ class MainActivity : ComponentActivity() {
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
-                        WheelTimePicker { snappedTime ->
-                            println(snappedTime)
-                        }
-                        WheelDatePicker { snappedDate ->
-                            println(snappedDate)
-                        }
-                        WheelDateTimePicker { snappedDateTime ->
-                            println(snappedDateTime)
-                        }
+                        WheelTimePicker(
+                            onScrollInProgress = {},
+                            onSnappedTime = { snappedTime ->
+                                println(snappedTime)
+                            }
+                        )
+                        WheelDatePicker(
+                            onScrollInProgress = {},
+                            onSnappedDate = { snappedDate ->
+                                println(snappedDate)
+                            }
+                        )
+                        WheelDateTimePicker(
+                            onScrollInProgress = {},
+                            onSnappedDateTime = { snappedDateTime ->
+                                println(snappedDateTime)
+                            }
+                        )
                         WheelDateTimePicker(
                             startDateTime = LocalDateTime.of(
                                 2025, 10, 20, 5, 30
@@ -63,10 +73,12 @@ class MainActivity : ComponentActivity() {
                                 shape = RoundedCornerShape(0.dp),
                                 color = Color(0xFFf1faee).copy(alpha = 0.2f),
                                 border = BorderStroke(2.dp, Color(0xFFf1faee))
-                            )
-                        ){ snappedDateTime ->
-                            println(snappedDateTime)
-                        }
+                            ),
+                            onScrollInProgress = {},
+                            onSnappedDateTime = { snappedDateTime ->
+                                println(snappedDateTime)
+                            }
+                        )
                     }
                 }
             }
