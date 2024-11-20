@@ -38,19 +38,28 @@ class MainActivity : ComponentActivity() {
                         verticalArrangement = Arrangement.Center
                     ) {
                         WheelTimePicker(
-                            onScrollInProgress = {},
+                            onScrollHourInProgress = {},
+                            onScrollMinuteInProgress = {},
+                            onScrollAmPmInProgress = {},
                             onSnappedTime = { snappedTime ->
                                 println(snappedTime)
                             }
                         )
                         WheelDatePicker(
-                            onScrollInProgress = {},
+                            onScrollDayInProgress = {},
+                            onScrollMonthInProgress = {},
+                            onScrollYearInProgress = {},
                             onSnappedDate = { snappedDate ->
                                 println(snappedDate)
                             }
                         )
                         WheelDateTimePicker(
-                            onScrollInProgress = {},
+                            onScrollDayInProgress = {},
+                            onScrollMonthInProgress = {},
+                            onScrollYearInProgress = {},
+                            onScrollHourInProgress = {},
+                            onScrollMinuteInProgress = {},
+                            onScrollAmPmInProgress = {},
                             onSnappedDateTime = { snappedDateTime ->
                                 println(snappedDateTime)
                             }
@@ -74,7 +83,12 @@ class MainActivity : ComponentActivity() {
                                 color = Color(0xFFf1faee).copy(alpha = 0.2f),
                                 border = BorderStroke(2.dp, Color(0xFFf1faee))
                             ),
-                            onScrollInProgress = {},
+                            onScrollDayInProgress = {},
+                            onScrollMonthInProgress = {},
+                            onScrollYearInProgress = {},
+                            onScrollHourInProgress = {},
+                            onScrollMinuteInProgress = {},
+                            onScrollAmPmInProgress = {},
                             onSnappedDateTime = { snappedDateTime ->
                                 println(snappedDateTime)
                             }

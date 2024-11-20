@@ -29,7 +29,9 @@ internal fun DefaultWheelDatePicker(
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
     onSnappedDate : (snappedDate: SnappedDate) -> Int? = { _ -> null },
-    onScrollInProgress: () -> Unit,
+    onScrollDayInProgress: () -> Unit,
+    onScrollMonthInProgress: () -> Unit,
+    onScrollYearInProgress: () -> Unit,
 ) {
     var snappedDate by remember { mutableStateOf(startDate) }
 
@@ -103,7 +105,7 @@ internal fun DefaultWheelDatePicker(
 
                     return@WheelTextPicker dayOfMonths.find { it.value == snappedDate.dayOfMonth }?.index
                 },
-                onScrollInProgress = onScrollInProgress
+                onScrollInProgress = onScrollDayInProgress
             )
             //Month
             WheelTextPicker(
@@ -148,7 +150,7 @@ internal fun DefaultWheelDatePicker(
 
                     return@WheelTextPicker months.find { it.value == snappedDate.monthValue }?.index
                 },
-                onScrollInProgress = onScrollInProgress
+                onScrollInProgress = onScrollMonthInProgress
             )
             //Year
             years?.let { years ->
@@ -194,7 +196,7 @@ internal fun DefaultWheelDatePicker(
 
                         return@WheelTextPicker years.find { it.value == snappedDate.year }?.index
                     },
-                    onScrollInProgress = onScrollInProgress
+                    onScrollInProgress = onScrollYearInProgress
                 )
             }
         }

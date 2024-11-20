@@ -30,7 +30,9 @@ internal fun DefaultWheelTimePicker(
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
     onSnappedTime : (snappedTime: SnappedTime, timeFormat: TimeFormat) -> Int? = { _,_ -> null },
-    onScrollInProgress: () -> Unit,
+    onScrollHourInProgress: () -> Unit,
+    onScrollMinuteInProgress: () -> Unit,
+    onScrollAmPmInProgress: () -> Unit,
 ) {
 
     var snappedTime by remember { mutableStateOf(startTime.truncatedTo(ChronoUnit.MINUTES)) }
@@ -146,7 +148,7 @@ internal fun DefaultWheelTimePicker(
                         amPmHours.find { it.value ==  localTimeToAmPmHour(snappedTime)}?.index
                     }
                 },
-                onScrollInProgress = onScrollInProgress
+                onScrollInProgress = onScrollHourInProgress
             )
             //Minute
             WheelTextPicker(
@@ -200,7 +202,7 @@ internal fun DefaultWheelTimePicker(
 
                     return@WheelTextPicker minutes.find { it.value == snappedTime.minute }?.index
                 },
-                onScrollInProgress = onScrollInProgress
+                onScrollInProgress = onScrollMinuteInProgress
             )
             //AM_PM
             if(timeFormat == TimeFormat.AM_PM) {
@@ -261,7 +263,7 @@ internal fun DefaultWheelTimePicker(
 
                         return@WheelTextPicker snappedIndex
                     },
-                    onScrollInProgress = onScrollInProgress
+                    onScrollInProgress = onScrollAmPmInProgress
                 )
             }
         }

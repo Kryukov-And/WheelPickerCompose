@@ -28,7 +28,12 @@ fun WheelDateTimePicker(
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
     onSnappedDateTime : (snappedDateTime: LocalDateTime) -> Unit = {},
-    onScrollInProgress: () -> Unit,
+    onScrollDayInProgress: () -> Unit,
+    onScrollMonthInProgress: () -> Unit,
+    onScrollYearInProgress: () -> Unit,
+    onScrollHourInProgress: () -> Unit,
+    onScrollMinuteInProgress: () -> Unit,
+    onScrollAmPmInProgress: () -> Unit,
 ) {
     DefaultWheelDateTimePicker(
         modifier,
@@ -46,6 +51,11 @@ fun WheelDateTimePicker(
             onSnappedDateTime(snappedDateTime.snappedLocalDateTime)
             snappedDateTime.snappedIndex
         },
-        onScrollInProgress = onScrollInProgress
+        onScrollDayInProgress = onScrollDayInProgress,
+        onScrollMonthInProgress = onScrollMonthInProgress,
+        onScrollYearInProgress = onScrollYearInProgress,
+        onScrollHourInProgress = onScrollHourInProgress,
+        onScrollMinuteInProgress = onScrollMinuteInProgress,
+        onScrollAmPmInProgress = onScrollAmPmInProgress
     )
 }
