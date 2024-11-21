@@ -26,7 +26,9 @@ fun WheelTimePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedTime : (snappedTime: LocalTime) -> Unit = {},
+    onSnappedHour : (snappedTime: LocalTime) -> Unit = { },
+    onSnappedMinute : (snappedTime: LocalTime) -> Unit = { },
+    onSnappedAmPm : (snappedTime: LocalTime) -> Unit = { },
     onScrollHourInProgress: () -> Unit,
     onScrollMinuteInProgress: () -> Unit,
     onScrollAmPmInProgress: () -> Unit,
@@ -42,8 +44,16 @@ fun WheelTimePicker(
         textStyle,
         textColor,
         selectorProperties,
-        onSnappedTime = { snappedTime, _ ->
-            onSnappedTime(snappedTime.snappedLocalTime)
+        onSnappedHour = { snappedTime, _ ->
+            onSnappedHour(snappedTime.snappedLocalTime)
+            snappedTime.snappedIndex
+        },
+        onSnappedMinute = { snappedTime, _ ->
+            onSnappedMinute(snappedTime.snappedLocalTime)
+            snappedTime.snappedIndex
+        },
+        onSnappedAmPm = { snappedTime, _ ->
+            onSnappedAmPm(snappedTime.snappedLocalTime)
             snappedTime.snappedIndex
         },
         onScrollHourInProgress = onScrollHourInProgress,

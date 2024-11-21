@@ -27,7 +27,12 @@ fun WheelDateTimePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedDateTime : (snappedDateTime: LocalDateTime) -> Unit = {},
+    onSnappedDay : (snappedDateTime: LocalDateTime) -> Unit = { },
+    onSnappedMonth : (snappedDateTime: LocalDateTime) -> Unit = { },
+    onSnappedYear : (snappedDateTime: LocalDateTime) -> Unit = { },
+    onSnappedHour : (snappedDateTime: LocalDateTime) -> Unit = { },
+    onSnappedMinute : (snappedDateTime: LocalDateTime) -> Unit = { },
+    onSnappedAmPm : (snappedDateTime: LocalDateTime) -> Unit = { },
     onScrollDayInProgress: () -> Unit,
     onScrollMonthInProgress: () -> Unit,
     onScrollYearInProgress: () -> Unit,
@@ -47,8 +52,28 @@ fun WheelDateTimePicker(
         textStyle,
         textColor,
         selectorProperties,
-        onSnappedDateTime = { snappedDateTime ->
-            onSnappedDateTime(snappedDateTime.snappedLocalDateTime)
+        onSnappedDay = { snappedDateTime ->
+            onSnappedDay(snappedDateTime.snappedLocalDateTime)
+            snappedDateTime.snappedIndex
+        },
+        onSnappedMonth = { snappedDateTime ->
+            onSnappedMonth(snappedDateTime.snappedLocalDateTime)
+            snappedDateTime.snappedIndex
+        },
+        onSnappedYear = { snappedDateTime ->
+            onSnappedYear(snappedDateTime.snappedLocalDateTime)
+            snappedDateTime.snappedIndex
+        },
+        onSnappedHour = { snappedDateTime ->
+            onSnappedHour(snappedDateTime.snappedLocalDateTime)
+            snappedDateTime.snappedIndex
+        },
+        onSnappedMinute = { snappedDateTime ->
+            onSnappedMinute(snappedDateTime.snappedLocalDateTime)
+            snappedDateTime.snappedIndex
+        },
+        onSnappedAmPm = { snappedDateTime ->
+            onSnappedAmPm(snappedDateTime.snappedLocalDateTime)
             snappedDateTime.snappedIndex
         },
         onScrollDayInProgress = onScrollDayInProgress,

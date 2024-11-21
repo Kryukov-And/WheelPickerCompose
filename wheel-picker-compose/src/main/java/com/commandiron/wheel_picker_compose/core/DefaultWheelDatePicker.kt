@@ -28,7 +28,9 @@ internal fun DefaultWheelDatePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedDate : (snappedDate: SnappedDate) -> Int? = { _ -> null },
+    onSnappedDay : (snappedDate: SnappedDate) -> Int? = { _ -> null },
+    onSnappedMonth : (snappedDate: SnappedDate) -> Int? = { _ -> null },
+    onSnappedYear : (snappedDate: SnappedDate) -> Int? = { _ -> null },
     onScrollDayInProgress: () -> Unit,
     onScrollMonthInProgress: () -> Unit,
     onScrollYearInProgress: () -> Unit,
@@ -94,7 +96,7 @@ internal fun DefaultWheelDatePicker(
                         val newIndex =  dayOfMonths.find { it.value == snappedDate.dayOfMonth }?.index
 
                         newIndex?.let {
-                            onSnappedDate(
+                            onSnappedDay(
                                 SnappedDate.DayOfMonth(
                                     localDate = snappedDate,
                                     index = newIndex
@@ -138,7 +140,7 @@ internal fun DefaultWheelDatePicker(
                         val newIndex =  months.find { it.value == snappedDate.monthValue }?.index
 
                         newIndex?.let {
-                            onSnappedDate(
+                            onSnappedMonth(
                                 SnappedDate.Month(
                                     localDate = snappedDate,
                                     index = newIndex
@@ -184,7 +186,7 @@ internal fun DefaultWheelDatePicker(
                             val newIndex =  years.find { it.value == snappedDate.year }?.index
 
                             newIndex?.let {
-                                onSnappedDate(
+                                onSnappedYear(
                                     SnappedDate.Year(
                                         localDate = snappedDate,
                                         index = newIndex

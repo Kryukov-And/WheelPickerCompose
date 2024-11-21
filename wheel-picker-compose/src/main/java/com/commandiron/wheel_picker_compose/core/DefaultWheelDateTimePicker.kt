@@ -29,7 +29,12 @@ internal fun DefaultWheelDateTimePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedDateTime : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedDay : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedMonth : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedYear : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedHour : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedMinute : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
+    onSnappedAmPm : (snappedDateTime: SnappedDateTime) -> Int? = { _ -> null },
     onScrollDayInProgress: () -> Unit,
     onScrollMonthInProgress: () -> Unit,
     onScrollYearInProgress: () -> Unit,
@@ -67,38 +72,35 @@ internal fun DefaultWheelDateTimePicker(
                 selectorProperties = WheelPickerDefaults.selectorProperties(
                     enabled = false
                 ),
-                onSnappedDate = { snappedDate ->
-
-                    val newDateTime = when(snappedDate) {
-                        is SnappedDate.DayOfMonth -> {
-                            snappedDateTime.withDayOfMonth(snappedDate.snappedLocalDate.dayOfMonth)
-                        }
-                        is SnappedDate.Month -> {
-                            snappedDateTime.withMonth(snappedDate.snappedLocalDate.monthValue)
-                        }
-                        is SnappedDate.Year -> {
-                            snappedDateTime.withYear(snappedDate.snappedLocalDate.year)
-                        }
-                    }
+                onSnappedDay = { snappedDate ->
+                    val newDateTime = snappedDateTime.withDayOfMonth(snappedDate.snappedLocalDate.dayOfMonth)
 
                     if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
                         snappedDateTime = newDateTime
                     }
 
-                    return@DefaultWheelDatePicker when(snappedDate) {
-                        is SnappedDate.DayOfMonth -> {
-                            onSnappedDateTime(SnappedDateTime.DayOfMonth(snappedDateTime,snappedDateTime.dayOfMonth - 1))
-                            snappedDateTime.dayOfMonth - 1
-                        }
-                        is SnappedDate.Month -> {
-                            onSnappedDateTime(SnappedDateTime.Month(snappedDateTime,snappedDateTime.month.value - 1))
-                            snappedDateTime.month.value - 1
-                        }
-                        is SnappedDate.Year -> {
-                            onSnappedDateTime(SnappedDateTime.Year(snappedDateTime, yearTexts.indexOf(snappedDateTime.year.toString())))
-                            yearTexts.indexOf(snappedDateTime.year.toString())
-                        }
+                    onSnappedDay(SnappedDateTime.DayOfMonth(snappedDateTime,snappedDateTime.dayOfMonth - 1))
+                    return@DefaultWheelDatePicker snappedDateTime.dayOfMonth - 1
+                },
+                onSnappedMonth = { snappedDate ->
+                    val newDateTime = snappedDateTime.withMonth(snappedDate.snappedLocalDate.monthValue)
+
+                    if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
+                        snappedDateTime = newDateTime
                     }
+
+                    onSnappedMonth(SnappedDateTime.Month(snappedDateTime,snappedDateTime.month.value - 1))
+                    return@DefaultWheelDatePicker snappedDateTime.month.value - 1
+                },
+                onSnappedYear = { snappedDate ->
+                    val newDateTime = snappedDateTime.withYear(snappedDate.snappedLocalDate.year)
+
+                    if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
+                        snappedDateTime = newDateTime
+                    }
+
+                    onSnappedYear(SnappedDateTime.Year(snappedDateTime, yearTexts.indexOf(snappedDateTime.year.toString())))
+                    return@DefaultWheelDatePicker yearTexts.indexOf(snappedDateTime.year.toString())
                 },
                 onScrollDayInProgress = onScrollDayInProgress,
                 onScrollMonthInProgress = onScrollMonthInProgress,
@@ -118,32 +120,36 @@ internal fun DefaultWheelDateTimePicker(
                 selectorProperties = WheelPickerDefaults.selectorProperties(
                     enabled = false
                 ),
-                onSnappedTime = { snappedTime, timeFormat ->
-
-                    val newDateTime = when(snappedTime) {
-                        is SnappedTime.Hour -> {
-                            snappedDateTime.withHour(snappedTime.snappedLocalTime.hour)
-                        }
-                        is SnappedTime.Minute -> {
-                            snappedDateTime.withMinute(snappedTime.snappedLocalTime.minute)
-                        }
-                    }
+                onSnappedHour = { snappedTime, timeFormat ->
+                    val newDateTime = snappedDateTime.withHour(snappedTime.snappedLocalTime.hour)
 
                     if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
                         snappedDateTime = newDateTime
                     }
 
-                    return@DefaultWheelTimePicker when(snappedTime) {
-                        is SnappedTime.Hour -> {
-                            onSnappedDateTime(SnappedDateTime.Hour(snappedDateTime, snappedDateTime.hour))
-                            if(timeFormat == TimeFormat.HOUR_24) snappedDateTime.hour else
-                            localTimeToAmPmHour(snappedDateTime.toLocalTime()) - 1
-                        }
-                        is SnappedTime.Minute -> {
-                            onSnappedDateTime(SnappedDateTime.Minute(snappedDateTime, snappedDateTime.minute))
-                            snappedDateTime.minute
-                        }
+                    onSnappedHour(SnappedDateTime.Hour(snappedDateTime, snappedDateTime.hour))
+                    return@DefaultWheelTimePicker if(timeFormat == TimeFormat.HOUR_24) snappedDateTime.hour else
+                        localTimeToAmPmHour(snappedDateTime.toLocalTime()) - 1
+                },
+                onSnappedMinute = { snappedTime, timeFormat ->
+                    val newDateTime = snappedDateTime.withMinute(snappedTime.snappedLocalTime.minute)
+
+                    if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
+                        snappedDateTime = newDateTime
                     }
+
+                    onSnappedMinute(SnappedDateTime.Minute(snappedDateTime, snappedDateTime.minute))
+                    return@DefaultWheelTimePicker snappedDateTime.minute
+                },
+                onSnappedAmPm = { snappedTime, timeFormat ->
+                    val newDateTime = snappedDateTime.withHour(snappedTime.snappedLocalTime.hour)
+                    if(!newDateTime.isBefore(minDateTime) && !newDateTime.isAfter(maxDateTime)) {
+                        snappedDateTime = newDateTime
+                    }
+
+                    onSnappedAmPm(SnappedDateTime.Hour(snappedDateTime, snappedDateTime.hour))
+                    return@DefaultWheelTimePicker if(timeFormat == TimeFormat.HOUR_24) snappedDateTime.hour else
+                        localTimeToAmPmHour(snappedDateTime.toLocalTime()) - 1
                 },
                 onScrollHourInProgress = onScrollHourInProgress,
                 onScrollMinuteInProgress = onScrollMinuteInProgress,

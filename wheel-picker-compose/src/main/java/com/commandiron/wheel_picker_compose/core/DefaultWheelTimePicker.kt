@@ -29,7 +29,9 @@ internal fun DefaultWheelTimePicker(
     textStyle: TextStyle = MaterialTheme.typography.titleMedium,
     textColor: Color = LocalContentColor.current,
     selectorProperties: SelectorProperties = WheelPickerDefaults.selectorProperties(),
-    onSnappedTime : (snappedTime: SnappedTime, timeFormat: TimeFormat) -> Int? = { _,_ -> null },
+    onSnappedHour: (snappedTime: SnappedTime, timeFormat: TimeFormat) -> Int? = { _,_ -> null },
+    onSnappedMinute : (snappedTime: SnappedTime, timeFormat: TimeFormat) -> Int? = { _,_ -> null },
+    onSnappedAmPm : (snappedTime: SnappedTime, timeFormat: TimeFormat) -> Int? = { _,_ -> null },
     onScrollHourInProgress: () -> Unit,
     onScrollMinuteInProgress: () -> Unit,
     onScrollAmPmInProgress: () -> Unit,
@@ -132,7 +134,7 @@ internal fun DefaultWheelTimePicker(
                         }
 
                         newIndex?.let {
-                            onSnappedTime(
+                            onSnappedHour(
                                 SnappedTime.Hour(
                                     localTime = snappedTime,
                                     index = newIndex
@@ -189,7 +191,7 @@ internal fun DefaultWheelTimePicker(
                             val newIndex = minutes.find { it.value == snappedTime.minute }?.index
 
                             newIndex?.let {
-                                onSnappedTime(
+                                onSnappedMinute(
                                     SnappedTime.Minute(
                                         localTime = snappedTime,
                                         index = newIndex
@@ -251,7 +253,7 @@ internal fun DefaultWheelTimePicker(
                             val newIndex = minutes.find { it.value == snappedTime.hour }?.index
 
                             newIndex?.let {
-                                onSnappedTime(
+                                onSnappedAmPm(
                                     SnappedTime.Hour(
                                         localTime = snappedTime,
                                         index = newIndex

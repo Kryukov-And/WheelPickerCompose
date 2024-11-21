@@ -1,7 +1,6 @@
 package com.commandiron.wheelpickercompose
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -41,7 +40,13 @@ class MainActivity : ComponentActivity() {
                             onScrollHourInProgress = {},
                             onScrollMinuteInProgress = {},
                             onScrollAmPmInProgress = {},
-                            onSnappedTime = { snappedTime ->
+                            onSnappedHour = { snappedTime ->
+                                println(snappedTime)
+                            },
+                            onSnappedMinute = { snappedTime ->
+                                println(snappedTime)
+                            },
+                            onSnappedAmPm = { snappedTime ->
                                 println(snappedTime)
                             }
                         )
@@ -49,9 +54,15 @@ class MainActivity : ComponentActivity() {
                             onScrollDayInProgress = {},
                             onScrollMonthInProgress = {},
                             onScrollYearInProgress = {},
-                            onSnappedDate = { snappedDate ->
+                            onSnappedDay = { snappedDate ->
                                 println(snappedDate)
-                            }
+                            },
+                            onSnappedMonth = { snappedDate ->
+                                println(snappedDate)
+                            },
+                            onSnappedYear = { snappedDate ->
+                                println(snappedDate)
+                            },
                         )
                         WheelDateTimePicker(
                             onScrollDayInProgress = {},
@@ -60,9 +71,24 @@ class MainActivity : ComponentActivity() {
                             onScrollHourInProgress = {},
                             onScrollMinuteInProgress = {},
                             onScrollAmPmInProgress = {},
-                            onSnappedDateTime = { snappedDateTime ->
+                            onSnappedDay = { snappedDateTime ->
                                 println(snappedDateTime)
-                            }
+                            },
+                            onSnappedMonth = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedYear = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedHour = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedMinute = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedAmPm = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
                         )
                         WheelDateTimePicker(
                             startDateTime = LocalDateTime.of(
@@ -89,9 +115,24 @@ class MainActivity : ComponentActivity() {
                             onScrollHourInProgress = {},
                             onScrollMinuteInProgress = {},
                             onScrollAmPmInProgress = {},
-                            onSnappedDateTime = { snappedDateTime ->
+                            onSnappedDay = { snappedDateTime ->
                                 println(snappedDateTime)
-                            }
+                            },
+                            onSnappedMonth = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedYear = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedHour = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedMinute = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
+                            onSnappedAmPm = { snappedDateTime ->
+                                println(snappedDateTime)
+                            },
                         )
                     }
                 }
